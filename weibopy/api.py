@@ -1,5 +1,4 @@
 from .decorators import get_request
-from functools import partial
 
 
 class API(object):
@@ -9,6 +8,11 @@ class API(object):
     def __init__(self, oauth):
         self.oauth = oauth
         self.statuses = Statuses(oauth=self.oauth)
+        self.comments = Comments(oauth=self.oauth)
+        self.users = Users(oauth=self.oauth)
+        self.friendships = Friendships(oauth=self.oauth)
+        self.short_url = ShortURL(oauth=self.oauth)
+        self.common = Common(oauth=self.oauth)
 
     @get_request
     def emotions(self,
@@ -19,7 +23,7 @@ class API(object):
 
         :param type: 表情类别，face：普通表情、ani：魔法表情、cartoon：动漫表情，默认为face。
         :param language: 语言类别，cnname：简体、twname：繁体，默认为cnname。
-        :return:
+        :return: content, status_code
         """
         ...
 
@@ -36,7 +40,6 @@ class Statuses(object):
 
     def __init__(self, oauth):
         self.oauth = oauth
-        self.get_request = partial(get_request, oauth=self.oauth, )
 
     @get_request
     def home_timeline(self,
@@ -57,7 +60,7 @@ class Statuses(object):
         :param base_app: 是否只获取当前应用的数据。0为否（所有数据），1为是（仅当前应用），默认为0。
         :param feature: 过滤类型ID，0：全部、1：原创、2：图片、3：视频、4：音乐，默认为0。
         :param trim_user: 返回值中user字段开关，0：返回完整user字段、1：user字段仅返回user_id，默认为0。
-        :return:
+        :return: content, status_code
         """
         ...
 
@@ -84,9 +87,8 @@ class Statuses(object):
         :param base_app: 是否只获取当前应用的数据。0为否（所有数据），1为是（仅当前应用），默认为0。
         :param feature: 过滤类型ID，0：全部、1：原创、2：图片、3：视频、4：音乐，默认为0。
         :param trim_user: 返回值中user字段开关，0：返回完整user字段、1：user字段仅返回user_id，默认为0。
-        :return:
+        :return: content, status_code
         """
-
         ...
 
     @get_request
@@ -106,7 +108,7 @@ class Statuses(object):
         :param count: 单页返回的记录条数，最大不超过200，默认为20。
         :param page: 返回结果的页码，默认为1。
         :param filter_by_author: 作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。
-        :return:
+        :return: content, status_code
         """
         ...
 
@@ -129,7 +131,7 @@ class Statuses(object):
         :param filter_by_author: 作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。
         :param filter_by_source: 来源筛选类型，0：全部、1：来自微博、2：来自微群，默认为0。
         :param filter_by_type: 原创筛选类型，0：全部微博、1：原创的微博，默认为0。
-        :return:
+        :return: content, status_code
         """
         ...
 
@@ -139,7 +141,7 @@ class Statuses(object):
         根据微博ID获取单条微博内容
 
         :param id: 需要获取的微博ID。
-        :return:
+        :return: content, status_code
         """
         ...
 
@@ -149,7 +151,7 @@ class Statuses(object):
         批量获取指定微博的转发数评论数
 
         :param ids: 需要获取数据的微博ID，多个之间用逗号分隔，最多不超过100个。
-        :return:
+        :return: content, status_code
         """
         ...
 
@@ -163,3 +165,76 @@ class Statuses(object):
         :return: None
         """
         ...
+
+
+class Comments(object):
+
+    SHOW = 'https://api.weibo.com/2/comments/show.json'
+    BY_ME = 'https://api.weibo.com/2/comments/by_me.json'
+
+
+    def __init__(self, oauth):
+        self.oauth = oauth
+
+    @get_request
+    def show(self,
+             id:int,
+             since_id:int=0,
+             max_id:int=0,
+             count:int=20,
+             page:int=1,
+             filter_by_author:int=0):
+        """
+        根据微博ID返回某条微博的评论列表
+
+        :param id: 需要查询的微博ID。
+        :param since_id: 若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。
+        :param max_id: 若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
+        :param count: 单页返回的记录条数，最大不超过200，默认为20。
+        :param page: 返回结果的页码，默认为1。
+        :param filter_by_author: 作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。
+        :return: content, status_code
+        """
+        ...
+
+    @get_request
+    def by_me(self,
+              since_id:int=0,
+              max_id:int=0,
+              count:int=20,
+              page:int=1,
+              filter_by_source:int=0):
+        """
+        获取当前登录用户所发出的评论列表
+
+        :param since_id:
+        :param max_id:
+        :param count:
+        :param page:
+        :param filter_by_source:
+        :return:
+        """
+
+
+class Users(object):
+
+    def __init__(self, oauth):
+        self.oauth = oauth
+
+
+class Friendships(object):
+
+    def __init__(self, oauth):
+        self.oauth = oauth
+
+
+class ShortURL(object):
+
+    def __init__(self, oauth):
+        self.oauth = oauth
+
+
+class Common(object):
+
+    def __init__(self, oauth):
+        self.oauth = oauth
