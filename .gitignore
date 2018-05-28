@@ -1,3 +1,9 @@
 .idea/
 venv/
 *.yml
+.ipynb_checkpoints/
+*__pycache__/
+*egg-info/
+build/
+dist/
+tester.ipynb

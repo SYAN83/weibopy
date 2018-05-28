@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 
 # Get the version
 version_regex = r'__version__ = ["\']([^"\']*)["\']'
-with open('weibopi/__init__.py', 'r') as f:
+with open('weibopy/__init__.py', 'r') as f:
     text = f.read()
     match = re.search(version_regex, text)
 

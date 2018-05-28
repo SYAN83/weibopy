@@ -29,6 +29,9 @@ class API(object):
 
 
 class Statuses(object):
+    """
+
+    """
 
     HOME_TIMELINE = 'https://api.weibo.com/2/statuses/home_timeline.json'
     USER_TIMELINE = 'https://api.weibo.com/2/statuses/user_timeline.json'
@@ -212,8 +215,9 @@ class Comments(object):
         :param count:
         :param page:
         :param filter_by_source:
-        :return:
+        :return: content, status_code
         """
+        ...
 
 
 class Users(object):
