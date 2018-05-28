@@ -33,7 +33,7 @@ setuptools.setup(
     python_requires=">=3.4",
     install_requires=[
         "requests>=2.11.1",
-        "selenium>=3.12.0",
+        "requests_oauthlib>=0.8.0",
     ],
     classifiers=(
         "Programming Language :: Python :: 3",
