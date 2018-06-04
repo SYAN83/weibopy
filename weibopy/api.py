@@ -2,6 +2,9 @@ from .decorators import get_request
 
 
 class API(object):
+    """
+    微博API(http://open.weibo.com/wiki/微博API)
+    """
 
     EMOTIONS = 'https://api.weibo.com/2/emotions.json'
 
@@ -29,9 +32,6 @@ class API(object):
 
 
 class Statuses(object):
-    """
-
-    """
 
     HOME_TIMELINE = 'https://api.weibo.com/2/statuses/home_timeline.json'
     USER_TIMELINE = 'https://api.weibo.com/2/statuses/user_timeline.json'
@@ -174,7 +174,10 @@ class Comments(object):
 
     SHOW = 'https://api.weibo.com/2/comments/show.json'
     BY_ME = 'https://api.weibo.com/2/comments/by_me.json'
-
+    TO_ME = 'https://api.weibo.com/2/comments/to_me.json'
+    TIMELINE = 'https://api.weibo.com/2/comments/timeline.json'
+    MENTIONS = 'https://api.weibo.com/2/comments/mentions.json'
+    SHOW_BATCH = 'https://api.weibo.com/2/comments/show_batch.json'
 
     def __init__(self, oauth):
         self.oauth = oauth
@@ -204,20 +207,90 @@ class Comments(object):
     def by_me(self,
               since_id:int=0,
               max_id:int=0,
-              count:int=20,
+              count:int=50,
               page:int=1,
               filter_by_source:int=0):
         """
         获取当前登录用户所发出的评论列表
 
-        :param since_id:
-        :param max_id:
-        :param count:
-        :param page:
-        :param filter_by_source:
+        :param since_id: 若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。
+        :param max_id: 若指定此参数，则返回ID小于或等于max_id的评论，默认为0。
+        :param count: 单页返回的记录条数，默认为50。
+        :param page: 返回结果的页码，默认为1。
+        :param filter_by_source: 来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。
         :return: content, status_code
         """
         ...
+
+    @get_request
+    def to_me(self,
+              since_id:int=0,
+              max_id:int=0,
+              count:int=50,
+              page:int=1,
+              filter_by_author:int=0,
+              filter_by_source:int=0):
+        """
+        获取当前登录用户所发出的评论列表
+
+        :param since_id: 若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。
+        :param max_id: 若指定此参数，则返回ID小于或等于max_id的评论，默认为0。
+        :param count: 单页返回的记录条数，默认为50。
+        :param page: 返回结果的页码，默认为1。
+        :param filter_by_author: 作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。
+        :param filter_by_source: 来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。
+        :return: content, status_code
+        """
+        ...
+
+    @get_request
+    def timeline(self,
+                 since_id:int=0,
+                 max_id:int=0,
+                 count:int=20,
+                 page:int=1,
+                 trim_user:int=0):
+        """
+        获取当前登录用户的最新评论包括接收到的与发出的
+
+        :param since_id: 若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。
+        :param max_id: 若指定此参数，则返回ID小于或等于max_id的评论，默认为0。
+        :param count: 单页返回的记录条数，默认为50。
+        :param page: 返回结果的页码，默认为1。
+        :param trim_user: 返回值中user字段开关，0：返回完整user字段、1：user字段仅返回user_id，默认为0。
+        :return: content, status_code
+        """
+        ...
+
+    @get_request
+    def mentions(self,
+                 since_id:int=0,
+                 max_id:int=0,
+                 count:int=50,
+                 page:int=1,
+                 filter_by_author:int=0,
+                 filter_by_source:int=0):
+        """
+        获取当前登录用户所发出的评论列表
+
+        :param since_id: 若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。
+        :param max_id: 若指定此参数，则返回ID小于或等于max_id的评论，默认为0。
+        :param count: 单页返回的记录条数，默认为50。
+        :param page: 返回结果的页码，默认为1。
+        :param filter_by_author: 作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。
+        :param filter_by_source: 来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。
+        :return: content, status_code
+        """
+        ...
+
+    @get_request
+    def show_batch(self, cids:int):
+        """
+        根据评论ID批量返回评论信息
+
+        :param cids: 需要查询的批量评论ID，用半角逗号分隔，最大50。
+        :return: content, status_code
+        """
 
 
 class Users(object):

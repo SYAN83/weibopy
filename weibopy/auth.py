@@ -1,8 +1,4 @@
 from requests_oauthlib import OAuth2Session
-from selenium import webdriver
-from urllib.parse import urlparse, parse_qs
-
-import time
 
 
 class OAuthHandler(object):
@@ -16,27 +12,14 @@ class OAuthHandler(object):
         self.redirect_uri = redirect_uri
 
     def authorize(self):
+
         # 请求用户授权Token
         self.oauth = OAuth2Session(self.client_id,
                                    redirect_uri=self.redirect_uri)
         authorization_url, state = self.oauth.authorization_url(url=self.AUTHORIZE)
 
         print('Please load the link {} to your browser and authorize weibo API access.'.format(authorization_url))
-        authorization_response = input('Enter the full callback URL:')
-
-        # # TODO: change selenium for remote use
-        # # selenium open authorize url
-        # driver = webdriver.Chrome()
-        # driver.get(authorization_url)
-        # # selenium authorize
-        # while True:
-        #     if driver.current_url.startswith(self.redirect_uri):
-        #         authorization_response = driver.current_url
-        #         parsed = urlparse(driver.current_url)
-        #         print(parse_qs(parsed.query))
-        #         driver.close()
-        #         break
-        #     time.sleep(1)
+        authorization_response = input('Enter the full callback URL: ')
 
         # 获取授权过的Access Token
         token = self.oauth.fetch_token(self.ACCESS_TOKEN,
@@ -44,6 +27,7 @@ class OAuthHandler(object):
                                        client_id=self.client_id,
                                        client_secret=self.client_secret)
         print('token: {}'.format(token))
+        self.access_token = token['access_token']
         return self.oauth
 
 
