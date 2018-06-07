@@ -1,7 +1,8 @@
-# WeiboPy ![HitCount](http://hits.dwyl.io/syan83/weibopy.svg)
+# WeiboPy ![HitCount](http://hits.dwyl.io/syan83/weibopy.svg) 
 
 An easy-to-use Python library for accessing the Sina Weibo API.
 
+![Python Version](https://img.shields.io/pypi/pyversions/Django.svg)
 
 ## Installation
 
