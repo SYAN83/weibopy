@@ -3,6 +3,7 @@
 An easy-to-use Python library for accessing the Sina Weibo API.
 
 ![Python Version](https://img.shields.io/pypi/pyversions/Django.svg)
+![License](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 ## Installation
 
