@@ -1,4 +1,5 @@
-# WeiboPy
+# WeiboPy [![HitCount](http://hits.dwyl.io/syan83/weibopy.svg)](http://hits.dwyl.io/syan83/weibopy)
+
 An easy-to-use Python library for accessing the Sina Weibo API.
 
 
@@ -12,7 +13,7 @@ An easy-to-use Python library for accessing the Sina Weibo API.
 
 2. Local install (bash):
 
-    Clone repository to local and in the top level execute command:
+    Clone the repository to your local machine and in the repo's top level execute command:
     
     ```bash
     python3 setup.py install
