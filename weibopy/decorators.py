@@ -5,7 +5,7 @@ def get_request(func):
     @wraps(func)
     def wrapper(self, *args, **kwargs):
         params = {k: v for k, v in locals()['kwargs'].items() if v is not None}
-        for k, v in params:
+        for k, v in params.items():
             if isinstance(v, list):
                 if k.startswith('url_'):
                     params[k] = '&'.join(v)
