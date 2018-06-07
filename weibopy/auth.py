@@ -3,16 +3,31 @@ from datetime import datetime
 
 
 class OAuthHandler(object):
+    """
+    Weibo authorization handler
+    """
 
     _AUTHORIZE = 'https://api.weibo.com/oauth2/authorize'
     _ACCESS_TOKEN = 'https://api.weibo.com/oauth2/access_token'
 
-    def __init__(self, client_id, client_secret, redirect_uri):
+    def __init__(self, client_id: str, client_secret: str, redirect_uri: str):
+        """
+        Initialize OAuthHandler
+
+        :param client_id: 申请应用时分配的AppKey。
+        :param client_secret: 申请应用时分配的AppSecret。
+        :param redirect_uri: 授权回调地址，站外应用需与设置的回调地址一致，站内应用需填写canvas page的地址。
+        """
         self.client_id = client_id
         self.client_secret = client_secret
         self.redirect_uri = redirect_uri
 
     def authorize(self):
+        """
+        Authorization workflow
+
+        :return: OAuth2Session
+        """
 
         # 请求用户授权Token
         self.oauth = OAuth2Session(self.client_id,
