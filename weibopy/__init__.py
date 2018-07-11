@@ -1,7 +1,7 @@
 """
 WeiboPy Sina Weibo API library for Python
 """
-__version__ = '0.3.0'
+__version__ = '0.3.1'
 __author__ = 'Shu Yan, Chuan Hong'
 
 
