@@ -1,4 +1,5 @@
 from functools import wraps
+from .error import APIError
 
 
 def get_request(func):
@@ -13,5 +14,7 @@ def get_request(func):
                     params[k] = ','.join(v)
         params['access_token'] = self.oauth.access_token
         resp = self.oauth.get(getattr(self, '_' + func.__name__.upper()), params=params)
+        if 'error' in resp.json():
+            raise APIError(response=resp)
         return resp.json(), resp.status_code
     return wrapper
